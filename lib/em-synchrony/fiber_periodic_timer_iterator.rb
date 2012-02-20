@@ -23,7 +23,7 @@ module EventMachine
         super(fe, after)
       end
 
-      # sleep as much 
+      # Sleep if the last request was recently (less then timout period)
       def sleep
         if @timeout > 0
           now = Time.now
