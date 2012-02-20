@@ -4,7 +4,7 @@ module EventMachine
     class FiberPeriodicTimerIterator < EM::Synchrony::Iterator
 
       # set timeout and start point
-      # each Fiber will be executed not earlier then once per timeout
+      # each Fiber will be executed not earlier than once per timeout
       def initialize(list, concurrency=1, timeout=0)
         @timeout = timeout
         @next_start = Time.now
