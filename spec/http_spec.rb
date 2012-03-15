@@ -81,4 +81,22 @@ describe EventMachine::HttpRequest do
       EventMachine.stop
     end
   end
+
+  it "should work with a handler callback" do
+    EventMachine.synchrony do
+      s = StubServer.new("HTTP/1.0 301 MOVED PERMANENTLY\r\nlocation: http://google.com\r\n\r\n", DELAY)
+
+      headers = Proc.new do |req|
+        if req.response_header['LOCATION'] =~ /google/
+          req.close
+        end
+      end
+      r = EventMachine::HttpRequest.new(URL).get({redirects: 1}, headers)
+      r.response.should == ''
+
+      s.stop
+      EventMachine.stop
+
+    end
+  end
 end
