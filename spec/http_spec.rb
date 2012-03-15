@@ -91,7 +91,7 @@ describe EventMachine::HttpRequest do
           req.close
         end
       end
-      r = EventMachine::HttpRequest.new(URL).get({redirects: 1}, headers)
+      r = EventMachine::HttpRequest.new(URL).get(redirects: 1, headers: headers)
       r.response.should == ''
 
       s.stop

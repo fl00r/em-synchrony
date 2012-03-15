@@ -9,7 +9,8 @@ module EventMachine
      %w[get head post delete put].each do |type|
        class_eval %[
          alias :a#{type} :#{type}
-         def #{type}(options = {}, headers=nil, &blk)
+         def #{type}(options = {}, &blk)
+           headers = options.delete :headers
            f = Fiber.current
 
            conn = setup_request(:#{type}, options, &blk)
